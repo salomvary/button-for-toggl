@@ -183,7 +183,7 @@ If you want to inspect the distribution version, run `npm run build`. A zipped d
 
 ## Changelog
 
-List of all the changes and added features can be found at http://toggl.github.io/toggl-button.
+List of all the changes and added features can be found at https://github.com/salomvary/button-for-toggl/releases.
 
 ## Using the Button
 
@@ -218,7 +218,7 @@ When adding new integrations please use `git squash` and merge all your commits 
 
 Don't know how to start? Just check out the [user requested services] that have not yet been implemented, pick one and start hacking.
 
-[Pull Request]: https://github.com/toggl/toggl-button/pulls
+[Pull Request]: https://github.com/salomvary/button-for-toggl/pulls
 [Toggl]: https://www.toggl.com/
-[Where can I find the button?]: https://github.com/toggl/toggl-button/wiki/Where-can-I-find-the-Button%3F
-[user requested services]: https://github.com/toggl/toggl-button/wiki/User-requested-buttons
+[Where can I find the button?]: https://github.com/salomvary/button-for-toggl/wiki/Where-can-I-find-the-Button%3F
+[user requested services]: https://github.com/salomvary/button-for-toggl/wiki/User-requested-buttons

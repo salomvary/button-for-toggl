@@ -6,7 +6,7 @@ Please take a read through these guidelines to make the process as smooth as pos
 
 ## Adding new integrations
 
-For adding a simple integration, the [bitrix24](https://github.com/toggl/toggl-button/blob/master/src/scripts/content/bitrix24.js) integration is a good option for inspiration.
+For adding a simple integration, the [bitrix24](https://github.com/salomvary/button-for-toggl/blob/master/src/scripts/content/bitrix24.js) integration is a good option for inspiration.
 
 All integrations have some maintenance cost - any time the UI is changed, Button for Toggl might break. Help future maintainers by trying to be sensibly "future-proof" with your CSS selectors, following the code style you observe elsewhere and avoiding neat code tricks that others might not understand.
 
@@ -44,7 +44,7 @@ Please consider the following with your pull request:
 
 ![](https://user-images.githubusercontent.com/6432028/54681215-b8dd3280-4b03-11e9-8bf9-c75712b655b2.png)
 
->See the [Microsoft To-Do](https://github.com/toggl/toggl-button/blob/master/src/scripts/content/microsoft-to-do.js) integration for reference.
+>See the [Microsoft To-Do](https://github.com/salomvary/button-for-toggl/blob/master/src/scripts/content/microsoft-to-do.js) integration for reference.
 
 **All buttons:**
 * Make sure we're not leaking styles or breaking the layout of the UI.

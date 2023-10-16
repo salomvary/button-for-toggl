@@ -1,10 +1,10 @@
-Please remember the [Contributing Guidelines](https://github.com/toggl/toggl-button/blob/master/.github/CONTRIBUTING.md) :heart:
+Please remember the [Contributing Guidelines](https://github.com/salomvary/button-for-toggl/blob/master/.github/CONTRIBUTING.md) :heart:
 
 ## :star2: What does this PR do?
 
 <!-- A Concise description of what this PR achieves, including any context. -->
 
-<!-- If you're adding a new integration, please make sure it follows the "style guide" https://github.com/toggl/toggl-button/blob/master/.github/CONTRIBUTING.md -->
+<!-- If you're adding a new integration, please make sure it follows the "style guide" https://github.com/salomvary/button-for-toggl/blob/master/.github/CONTRIBUTING.md -->
 
 ## :bug: Recommendations for testing
 
