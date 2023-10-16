@@ -163,7 +163,7 @@ togglbutton.render(
       marginLeft: '2px'
     });
 
-    link.setAttribute('data-content', 'Toggl Button');
+    link.setAttribute('data-content', 'Button for Toggl');
 
     link.classList.add(
       'w-task-row__option',

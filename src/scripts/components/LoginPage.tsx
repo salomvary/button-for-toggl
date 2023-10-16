@@ -62,9 +62,9 @@ export default function LoginPage ({ source, isLoggedIn, isPopup }: LoginProps) 
   }, [error]);
 
   React.useEffect(() => {
-    if (source === 'web-login' && loading) document.title = 'Logging in to Toggl Button';
-    if (source === 'web-login' && error) document.title = 'Could not login to Toggl Button';
-    if (source === 'quick-start' || loggedIn) document.title = 'Welcome to Toggl Button';
+    if (source === 'web-login' && loading) document.title = 'Logging in to Button for Toggl';
+    if (source === 'web-login' && error) document.title = 'Could not login to Button for Toggl';
+    if (source === 'quick-start' || loggedIn) document.title = 'Welcome to Button for Toggl';
   }, [source, loading, error, loggedIn]);
 
   const onLoginError = React.useCallback(

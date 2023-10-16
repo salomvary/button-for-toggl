@@ -1,6 +1,6 @@
-# Contributing to Toggl Button
+# Contributing to Button for Toggl
 
-Thanks for your interest in contributing to Toggl Button!
+Thanks for your interest in contributing to Button for Toggl!
 
 Please take a read through these guidelines to make the process as smooth as possible.
 
@@ -8,7 +8,7 @@ Please take a read through these guidelines to make the process as smooth as pos
 
 For adding a simple integration, the [bitrix24](https://github.com/toggl/toggl-button/blob/master/src/scripts/content/bitrix24.js) integration is a good option for inspiration.
 
-All integrations have some maintenance cost - any time the UI is changed, Toggl Button might break. Help future maintainers by trying to be sensibly "future-proof" with your CSS selectors, following the code style you observe elsewhere and avoiding neat code tricks that others might not understand.
+All integrations have some maintenance cost - any time the UI is changed, Button for Toggl might break. Help future maintainers by trying to be sensibly "future-proof" with your CSS selectors, following the code style you observe elsewhere and avoiding neat code tricks that others might not understand.
 
 All integrations should be tested across both Chrome and Firefox.
 
@@ -21,7 +21,7 @@ Please consider the following with your pull request:
   * You may run `npm run lint path/to/your/file/here.js` to lint a file manually. Add `-- --fix` to the command to automatically fix most issues.
 * When you're done, squash all of your commits into one commit. This keeps the git log compact and clear.
 
-#### Toggl Button "style guide":
+#### Button for Toggl "style guide":
 
 **For integrations that show one button on the page:**
 * Use the default appearance
@@ -52,12 +52,12 @@ Please consider the following with your pull request:
 
 ### DOM integration
 
-If you want to quickly integrate **Toggl Button** with your website.
+If you want to quickly integrate **Button for Toggl** with your website.
 You can enable the *DOM Integration* in the **Custom Integrations** section for your domain
 
 ![enable-dom-integration](https://user-images.githubusercontent.com/1716853/70514207-34cb4f00-1b59-11ea-894a-538f94f4d1f5.png)
 
-You will have to add one or more `div` in your DOM with the class name `toggl-root`, containing the metadata for the time-entry you want to start, Toggl Button will render a button link as a child of these `divs`.
+You will have to add one or more `div` in your DOM with the class name `toggl-root`, containing the metadata for the time-entry you want to start, Button for Toggl will render a button link as a child of these `divs`.
 
 The schema for the time-entry metadata is
 

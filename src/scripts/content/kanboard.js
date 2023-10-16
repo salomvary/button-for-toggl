@@ -1,6 +1,6 @@
 'use strict';
 
-console.log('Toggl Button loaded for kanboard.');
+console.log('Button for Toggl loaded for kanboard.');
 
 function addTimerLink (elem, description, location) {
   const text = $(description, elem).textContent;

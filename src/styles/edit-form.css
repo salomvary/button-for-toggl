@@ -112,7 +112,7 @@
   max-height: inherit;
   padding: 0;
 
-  /* Toggl Button / other */
+  /* Button for Toggl / other */
   overflow: auto;
   background: var(--base-color);
   color: var(--font-color);

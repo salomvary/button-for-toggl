@@ -998,7 +998,7 @@ window.TogglButton = {
     const options = {
       type: 'basic',
       iconUrl: 'images/icon-128.png',
-      title: 'Toggl Button',
+      title: 'Button for Toggl',
       message,
       priority: 2
     };
@@ -1049,7 +1049,7 @@ window.TogglButton = {
     const options = {
       type: 'basic',
       iconUrl: 'images/icon-128.png',
-      title: 'Toggl Button - Pomodoro Timer',
+      title: 'Button for Toggl - Pomodoro Timer',
       message: 'Time is up! Take a break',
       priority: 2
     };
@@ -1594,7 +1594,7 @@ window.TogglButton = {
     const options = {
       type: 'basic',
       iconUrl: 'images/icon-128.png',
-      title: 'Toggl Button',
+      title: 'Button for Toggl',
       message:
           "You've been idle for " +
           timeString +
@@ -1685,7 +1685,7 @@ window.TogglButton = {
       options = {
         type: 'basic',
         iconUrl: 'images/icon-128.png',
-        title: 'Toggl Button',
+        title: 'Button for Toggl',
         message: "Don't forget to track your time!"
       };
 
@@ -1732,7 +1732,7 @@ window.TogglButton = {
       const options = {
         type: 'basic',
         iconUrl: 'images/icon-128.png',
-        title: 'Toggl Button',
+        title: 'Button for Toggl',
         message: 'Your workday is over, running entry has been stopped'
       };
 

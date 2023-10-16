@@ -58,7 +58,7 @@ export function getStoreLink (isFirefox = false) {
 
 /**
  * Number of life-time entries the user must have tracked
- * with Toggl Button to be considered an active user
+ * with Button for Toggl to be considered an active user
  */
 const ACTIVE_USER_TRESHOLD = 30;
 

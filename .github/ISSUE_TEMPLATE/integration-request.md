@@ -1,6 +1,6 @@
 ---
 name: Integration request
-about: Suggest a new service you want to see Toggl Button integrated with.
+about: Suggest a new service you want to see Button for Toggl integrated with.
 title: Add integration with SERVICENAME
 labels: integration-request
 assignees: ''
@@ -15,7 +15,7 @@ assignees: ''
 
 ### Describe the solution you'd like
 
-<!-- A clear description of where you'd like to see Toggl Button appear inside the service. Feel free to include a screenshot. Keep in mind that it should be useful to the wider user base. -->
+<!-- A clear description of where you'd like to see Button for Toggl appear inside the service. Feel free to include a screenshot. Keep in mind that it should be useful to the wider user base. -->
 
 #### Additional context
 

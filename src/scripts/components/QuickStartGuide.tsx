@@ -16,7 +16,7 @@ export default function QuickStartGuide () {
   return (
     <Content>
       <Row>
-        <Heading>Welcome to Toggl Button!</Heading>
+        <Heading>Welcome to Button for Toggl!</Heading>
         <Subheading>Track time from anywhere on the web.</Subheading>
       </Row>
       <Row>
@@ -27,7 +27,7 @@ export default function QuickStartGuide () {
       <Guide id="quickstart">
         <GuideHeading>
           <h2>Quick start</h2>
-          <p>Toggl Button's top features and how to use them:</p>
+          <p>Button for Toggl's top features and how to use them:</p>
         </GuideHeading>
         <div css={[section, right, salmon]}>
           <div>
@@ -36,7 +36,7 @@ export default function QuickStartGuide () {
               <h3>Create time entries</h3>
               <p>Just click the "Play" icon to start tracking your first time entry!</p>
               <p>When you're done with your task, click on the "Stop" icon to save your entry.</p>
-              <p>The Toggl Button popup shows a list of your recent time entries*. You can edit them from here.</p>
+              <p>The Button for Toggl popup shows a list of your recent time entries*. You can edit them from here.</p>
               <p>You can also enable useful time tracking features like idle detection and reminders from the Settings page.</p>
               <Link href="settings.html"><Button>Settings <Arrow/></Button></Link>
               <p className="small">*To see older time entries or run more complex reports, check out our web app at <Link href="https://toggl.com/app" target="_blank">toggl.com</Link>!</p>
@@ -51,8 +51,8 @@ export default function QuickStartGuide () {
             <div>
               <h5>Supercharge your tools</h5>
               <h3>Use integrations</h3>
-              <p>Add Toggl Button to 130+ tools for super fast time tracking!</p>
-              <p>Once enabled, Toggl Button will show up inside the tool - just click on the Toggl Button icon to start a time entry.</p>
+              <p>Add Button for Toggl to 130+ tools for super fast time tracking!</p>
+              <p>Once enabled, Button for Toggl will show up inside the tool - just click on the Button for Toggl icon to start a time entry.</p>
               <p>The description (and the project, if possible) will automatically be filled in for you.</p>
               <p>Check out the Integrations page now to see if your favourite tools are supported!</p>
               <Link href="settings.html?tab=integrations"><Button>Integrations <Arrow/></Button></Link>
@@ -69,7 +69,7 @@ export default function QuickStartGuide () {
               <h3>Pomodoro mode</h3>
               <p>Need help managing your time?</p>
               <p>Pomodoro® is a technique to help you focus on a task, by working hard for short intervals then taking a break.</p>
-              <p>Toggl Button's pomodoro mode lets you set your interval length, and reminds you to take a break when time's up. You can also enable a ticking sound to help keep you on track.</p>
+              <p>Button for Toggl's pomodoro mode lets you set your interval length, and reminds you to take a break when time's up. You can also enable a ticking sound to help keep you on track.</p>
               <p>Turn it on from the Pomodoro page.</p>
               <Link href="settings.html?tab=pomodoro"><Button>Pomodoro <Arrow/></Button></Link>
             </div>
@@ -81,7 +81,7 @@ export default function QuickStartGuide () {
       </Guide>
       <Spotty>
         <h2>100% Open Source</h2>
-        <p>Want to help us make Toggl Button better?</p>
+        <p>Want to help us make Button for Toggl better?</p>
         <Link href="https://github.com/toggl/toggl-button/" target="_blank">
           <OSSParagraph>All our code is available on GitHub and we ❤ PRs!</OSSParagraph>
           <svg height="32" viewBox="0 0 16 16">

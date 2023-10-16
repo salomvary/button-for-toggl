@@ -15,11 +15,11 @@ module.exports = {
         'assets': [
           {
             'path': 'dist/toggl-button-chrome-*.zip',
-            'label': 'Toggl Button for Chrome'
+            'label': 'Button for Toggl for Chrome'
           },
           {
             'path': 'dist/toggl-button-firefox-*.zip',
-            'label': 'Toggl Button for Firefox'
+            'label': 'Button for Toggl for Firefox'
           }
         ]
       }

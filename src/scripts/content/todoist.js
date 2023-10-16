@@ -101,8 +101,8 @@ which will figure out what the lowest level existing project is.
 
 E.g.
 - Project hierarchy is MyProject > MySubProject > MyFeatureProject
-- Selector will find all three project names and pass to Toggl Button
-- Toggl Button will first check if MyFeatureProject exists, and if it doesn't, try to use the next parent etc.
+- Selector will find all three project names and pass to Button for Toggl
+- Button for Toggl will first check if MyFeatureProject exists, and if it doesn't, try to use the next parent etc.
 */
 
 function getProjectNameFromLabel (elem) {
