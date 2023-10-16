@@ -76,7 +76,7 @@ module.exports = config(({ development, bugsnagApiKey, production, release, vers
       TOGGL_WEB_HOST: 'https://toggl.com/track',
       BUGSNAG_API_KEY: bugsnagApiKey,
       DEBUG: development,
-      GA_TRACKING_ID: 'UA-3215787-22',
+      GA_TRACKING_ID: '',
       VERSION: version
     }),
     new CleanPlugin(),
