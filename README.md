@@ -1,9 +1,17 @@
-# Button for Toggl [![Build Status](https://travis-ci.org/toggl/toggl-button.svg?branch=master)](https://travis-ci.org/toggl/toggl-button) [![Chrome Extension](https://img.shields.io/chrome-web-store/v/oejgccbfbmkkpaidnkphaiaecficdnfn.svg?label=Chrome%20Extension)](https://chrome.google.com/webstore/detail/toggl-button-productivity/oejgccbfbmkkpaidnkphaiaecficdnfn) [![Firefox Add-on](https://img.shields.io/amo/v/toggl-button-time-tracker.svg?label=Firefox%20Add-on)](https://addons.mozilla.org/en-US/firefox/addon/toggl-button-time-tracker/)
+# Button for Toggl <!--[![Build Status](https://travis-ci.org/toggl/toggl-button.svg?branch=master)](https://travis-ci.org/toggl/toggl-button) [![Chrome Extension](https://img.shields.io/chrome-web-store/v/oejgccbfbmkkpaidnkphaiaecficdnfn.svg?label=Chrome%20Extension)](https://chrome.google.com/webstore/detail/toggl-button-productivity/oejgccbfbmkkpaidnkphaiaecficdnfn) [![Firefox Add-on](https://img.shields.io/amo/v/toggl-button-time-tracker.svg?label=Firefox%20Add-on)](https://addons.mozilla.org/en-US/firefox/addon/toggl-button-time-tracker/)-->
 
 > Track time effortlessly.
 
 Start and stop the timer from the web tools you use daily. Get the time-tracking
 out of the way and focus on real work.
+
+# ⚠️ This is an unofficial fork of the [Toggl Track Extension](https://github.com/toggl/track-extension) formerly known as Toggl Button
+
+Unfortunately, Toggl Track extension [got unceremoniously closed-sourced](https://github.com/toggl/track-extension/commit/f78590c447f30eaa3685d582a2ac888302bd8f41). The move was explained in [this blog post](https://toggl.com/blog/purposeful-open-source):
+
+>  The main browser extension code will be closed, which will allow us to work on the extensions’ features more easily as it will allow us to share code with other projects.
+
+Fortunately the original extension has BSD-3-Clause license which allows this fork to exist.
 
 ## Compatible services
 - [AgenoCRM](https://agenocrm.com/)
@@ -148,15 +156,11 @@ out of the way and focus on real work.
 
 ## Installing from the Web Store/Addons page
 
-__Chrome__
-https://chrome.google.com/webstore/detail/toggl-button/oejgccbfbmkkpaidnkphaiaecficdnfn
-
-__Firefox__
-https://addons.mozilla.org/en-US/firefox/addon/toggl-button-time-tracker/
+This extension is currently not published anywhere in a ready-to-be-installed form. See how to install from source below.
 
 ## Installing from Source
 
-- Clone the repository `git clone git@github.com:toggl/toggl-button.git`
+- Clone the repository `git clone git@github.com:salomvary/button-for-toggl.git`
 - Install Node.js and NPM https://nodejs.org/en/
 - Run `npm install`
 - Run `npm start`
@@ -178,6 +182,16 @@ Then depending on your browser, continue with the following steps.
 3. Select the `dist/firefox/manifest.json` file
 
 **Note** that in Firefox the add-on needs to be manually loaded again when the browser restarts.
+
+If you want to install the extension permanently from source on Firefox, follow these steps:
+
+1. [Install web-ext](https://extensionworkshop.com/documentation/develop/getting-started-with-web-ext/).
+2. Create an account at https://addons.mozilla.org.
+3. Get API key from https://addons.mozilla.org/en-US/developers/addon/api/key/.
+4. Run `web-ext sign --api-key [JWT issuer] --api-secret [JWT secret] --source-dir dist/firefox` in a terminal.
+5. Go to `about:addons` in Firefox.
+6. Click Install add-on from File under the ⚙ menu
+7. Choose the `.xpi` file under the `web-ext-artifacts` folder of this project.
 
 If you want to inspect the distribution version, run `npm run build`. A zipped distribution can then be found in `dist/`.
 
