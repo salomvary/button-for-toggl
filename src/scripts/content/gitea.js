@@ -8,7 +8,7 @@ togglbutton.render('.time-desc:not(.toggl)',
       className: 'gitea',
       description: descriptionSelector,
       tags: tagsSelector,
-      projectName: projectSelector,
+      projectName: projectSelector
     });
     $container.appendChild(link);
   }
@@ -27,9 +27,9 @@ function projectSelector () {
 
 function tagsSelector () {
   const $tags = document.getElementsByClassName('labels')[0].children;
-  var $result = [];
+  const $result = [];
   $tags.forEach(element => {
-    if (element.children.length > 0 && !element.children[0].classList.contains("hide")) {
+    if (element.children.length > 0 && !element.children[0].classList.contains('hide')) {
       $result.push(element.children[0].textContent);
     }
   });
