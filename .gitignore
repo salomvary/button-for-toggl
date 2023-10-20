@@ -4,6 +4,7 @@
 !.gitignore
 !.npmrc
 !.travis.yml
+!.github
 
 dist/
 node_modules/
