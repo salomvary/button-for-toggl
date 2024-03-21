@@ -52,10 +52,10 @@ If you want to install the extension permanently from source on Firefox, follow 
 1. [Install web-ext](https://extensionworkshop.com/documentation/develop/getting-started-with-web-ext/).
 2. Create an account at https://addons.mozilla.org.
 3. Get API key from https://addons.mozilla.org/en-US/developers/addon/api/key/.
-4. Run `web-ext sign --api-key [JWT issuer] --api-secret [JWT secret] --source-dir dist/firefox` in a terminal.
+4. Run `web-ext sign --api-key [JWT issuer] --api-secret [JWT secret] --source-dir dist/firefox --artifacts-dir dist` in a terminal.
 5. Go to `about:addons` in Firefox.
 6. Click Install add-on from File under the ⚙ menu
-7. Choose the `.xpi` file under the `web-ext-artifacts` folder of this project.
+7. Choose the `.xpi` file under the `dist` folder of this project.
 
 If you want to inspect the distribution version, run `npm run build`. A zipped distribution can then be found in `dist/`.
 
