@@ -80,65 +80,68 @@ module.exports = config(({ development, bugsnagApiKey, production, release, vers
       VERSION: version
     }),
     new CleanPlugin(),
-    new CopyPlugin([
-      ...copy({
-        from: 'html/',
-        to: 'html/'
-      }),
-      ...copy({
-        from: 'images/',
-        to: 'images/'
-      }),
-      ...copy({
-        from: 'sounds/',
-        to: 'sounds/'
-      }),
-      ...copy({
-        from: 'styles/',
-        to: 'styles/'
-      }),
-      {
-        from: 'chrome-manifest.json',
-        to: 'chrome/manifest.json',
-        transform: transformManifest('chrome')
-      },
-      {
-        from: 'firefox-manifest.json',
-        to: 'firefox/manifest.json',
-        transform: transformManifest('firefox')
-      }
-    ], { copyUnmodified: true }),
-    production && release &&
-      new BugsnagSourceMapUploaderPlugin({
-        apiKey: bugsnagApiKey,
-        appVersion: version,
-        publicPath: 'togglbutton://',
-        overwrite: true /* Overwrites existing sourcemaps for this version */
-      }),
-    new FileManagerPlugin({
-      onEnd: [
+    new CopyPlugin({
+      patterns: [
+        ...copy({
+          from: 'html/',
+          to: 'html/'
+        }),
+        ...copy({
+          from: 'images/',
+          to: 'images/'
+        }),
+        ...copy({
+          from: 'sounds/',
+          to: 'sounds/'
+        }),
+        ...copy({
+          from: 'styles/',
+          to: 'styles/'
+        }),
         {
-          copy: [
-            { source: 'dist/scripts/**/*', destination: 'dist/chrome/scripts' },
-            { source: 'dist/scripts/**/*', destination: 'dist/firefox/scripts' }
-          ]
+          from: 'chrome-manifest.json',
+          to: 'chrome/manifest.json',
+          transform: transformManifest('chrome')
         },
-        production && {
-          delete: [
-            'dist/**/*.js.map'
-          ],
-          archive: [
-            {
-              source: 'dist/chrome',
-              destination: `dist/toggl-button-chrome-${version}.zip`
-            },
-            {
-              source: 'dist/firefox',
-              destination: `dist/toggl-button-firefox-${version}.zip`
-            }
-          ]
+        {
+          from: 'firefox-manifest.json',
+          to: 'firefox/manifest.json',
+          transform: transformManifest('firefox')
         }
       ]
+    }, { copyUnmodified: true }),
+    production && release &&
+    new BugsnagSourceMapUploaderPlugin({
+      apiKey: bugsnagApiKey,
+      appVersion: version,
+      publicPath: 'togglbutton://',
+      overwrite: true /* Overwrites existing sourcemaps for this version */
+    }),
+    new FileManagerPlugin({
+      events: {
+        onEnd: {
+          // Paths are relative to ./src/ below
+          copy: [
+            { source: '../dist/scripts', destination: '../dist/chrome/scripts' },
+            { source: '../dist/scripts', destination: '../dist/firefox/scripts' }
+          ],
+          ...(production ? {
+            delete: [
+              '../dist/**/*.js.map'
+            ],
+            archive: [
+              {
+                source: '../dist/chrome',
+                destination: `./dist/toggl-button-chrome-${version}.zip`
+              },
+              {
+                source: '../dist/firefox',
+                destination: `../dist/toggl-button-firefox-${version}.zip`
+              }
+            ]
+          } : {})
+        }
+      }
     })
   ].filter(Boolean)
 }));
