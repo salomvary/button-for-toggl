@@ -10,7 +10,7 @@
   "scripts": {
     "start": "webpack-cli --mode development --watch",
     "build": "webpack-cli --mode production --env production",
-    "release": "webpack-cli --mode production --env production --env.release",
+    "release": "webpack-cli --mode production --env production --env release",
     "lint": "eslint",
     "lint:staged": "lint-staged",
     "postversion": "npm run release"
