@@ -83,6 +83,12 @@ If you use a setup, where one of the supported services is on a custom domain yo
 
 Just fork the project, make your changes and create a [pull request].
 
+## Making a new release
+
+    npm version patch
+    git push --tags
+    web-ext sign --api-key [JWT issuer] --api-secret [JWT secret] --source-dir dist/firefox --artifacts-dir dist
+
 [Pull Request]: https://github.com/salomvary/button-for-toggl/pulls
 [Toggl]: https://www.toggl.com/
 [user requested services]: https://github.com/salomvary/button-for-toggl/wiki/User-requested-buttons
