@@ -36,8 +36,7 @@ const DEFAULT_SETTINGS = {
 
 const LOCAL_ONLY = {
   [ORIGINS_KEY]: true,
-  timeEntriesTracked: true,
-  dismissedReviewPrompt: true
+  timeEntriesTracked: true
 };
 
 function isLocalOnly (key) {

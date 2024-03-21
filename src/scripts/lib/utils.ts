@@ -41,20 +41,3 @@ export function isTogglURL (url: string) {
   }
 }
 
-export function getStoreLink (isFirefox = false) {
-  if (isFirefox) {
-    return 'https://addons.mozilla.org/en-US/firefox/addon/toggl-button-time-tracker/';
-  }
-  return 'https://chrome.google.com/webstore/detail/toggl-button-productivity/oejgccbfbmkkpaidnkphaiaecficdnfn';
-}
-
-/**
- * Number of life-time entries the user must have tracked
- * with Button for Toggl to be considered an active user
- */
-const ACTIVE_USER_TRESHOLD = 30;
-
-export async function isActiveUser (db: TogglDB) {
-  const timeEntriesTracked = await db.get<number>('timeEntriesTracked') || 0;
-  return (timeEntriesTracked >= ACTIVE_USER_TRESHOLD);
-}

@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill';
 
 import TogglOrigins from './origins';
-import { getStoreLink, getUrlParam, isActiveUser } from './lib/utils';
+import { getUrlParam } from './lib/utils';
 
 let TogglButton = browser.extension.getBackgroundPage().TogglButton;
 const db = browser.extension.getBackgroundPage().db;
@@ -23,9 +23,6 @@ if (FF) {
 }
 
 document.querySelector('#version').textContent = process.env.VERSION;
-document.querySelector('#review-prompt a').href = getStoreLink(FF);
-document.querySelector('#review-prompt a').addEventListener('click', dismissReviewPrompt);
-document.querySelector('#close-review-prompt').addEventListener('click', dismissReviewPrompt);
 [...document.querySelectorAll('.nav-link')].forEach(link => {
   link.addEventListener('click', changeActiveTab);
 });
@@ -661,7 +658,7 @@ const Settings = {
   }
 };
 
-document.addEventListener('DOMContentLoaded', async function (e) {
+document.addEventListener('DOMContentLoaded', function (e) {
   try {
     Settings.$pomodoroVolume = document.querySelector('#sound-volume');
     Settings.$pomodoroVolumeLabel = document.querySelector('#volume-label');
@@ -999,11 +996,6 @@ document.addEventListener('DOMContentLoaded', async function (e) {
     });
 
     Settings.loadSitesIntoList();
-
-    const shouldShowReviewPrompt = await isActiveUser(db);
-    if (shouldShowReviewPrompt) {
-      showReviewPrompt();
-    }
   } catch (err) {
     browser.runtime.sendMessage({
       type: 'error',
@@ -1037,17 +1029,4 @@ function changeActiveTab (tab) {
   if (tabEls.length === 0) {
     console.error(new Error(`changeActiveTab: Invalid tab name: ${name}`));
   }
-}
-
-async function showReviewPrompt () {
-  const dismissedReviewPrompt = await db.get('dismissedReviewPrompt');
-  if (dismissedReviewPrompt) {
-    return;
-  }
-  document.body.dataset.showReviewBanner = true;
-}
-
-function dismissReviewPrompt () {
-  document.body.dataset.showReviewBanner = false;
-  db.set('dismissedReviewPrompt', true);
 }
