@@ -1,4 +1,4 @@
-# Button for Toggl <!--[![Build Status](https://travis-ci.org/toggl/toggl-button.svg?branch=master)](https://travis-ci.org/toggl/toggl-button) [![Chrome Extension](https://img.shields.io/chrome-web-store/v/oejgccbfbmkkpaidnkphaiaecficdnfn.svg?label=Chrome%20Extension)](https://chrome.google.com/webstore/detail/toggl-button-productivity/oejgccbfbmkkpaidnkphaiaecficdnfn) [![Firefox Add-on](https://img.shields.io/amo/v/toggl-button-time-tracker.svg?label=Firefox%20Add-on)](https://addons.mozilla.org/en-US/firefox/addon/toggl-button-time-tracker/)-->
+# Button for Toggl
 
 > Track time effortlessly.
 

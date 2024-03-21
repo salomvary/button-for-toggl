@@ -3,7 +3,6 @@
 !.eslintrc.js
 !.gitignore
 !.npmrc
-!.travis.yml
 !.github
 
 dist/
