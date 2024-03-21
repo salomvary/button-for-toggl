@@ -8,12 +8,12 @@
     "node": ">=10.14.0"
   },
   "scripts": {
-    "start": "NODE_OPTIONS=--openssl-legacy-provider webpack-cli --mode development --watch",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack-cli --mode production --env production",
-    "release": "NODE_OPTIONS=--openssl-legacy-provider webpack-cli --mode production --env production --env.release",
-    "lint": "NODE_OPTIONS=--openssl-legacy-provider eslint",
-    "lint:staged": "NODE_OPTIONS=--openssl-legacy-provider lint-staged",
-    "lint:ci": "NODE_OPTIONS=--openssl-legacy-provider eslint -- `git diff --diff-filter=ACMTUXB --name-only $TRAVIS_COMMIT_RANGE -- '*.js' | tr '\n' ' '`",
+    "start": "webpack-cli --mode development --watch",
+    "build": "webpack-cli --mode production --env production",
+    "release": "webpack-cli --mode production --env production --env.release",
+    "lint": "eslint",
+    "lint:staged": "lint-staged",
+    "lint:ci": "eslint -- `git diff --diff-filter=ACMTUXB --name-only $TRAVIS_COMMIT_RANGE -- '*.js' | tr '\n' ' '`",
     "postversion": "npm run release"
   },
   "babel": {
