@@ -80,6 +80,7 @@
     "svg-url-loader": "2.3.2",
     "ts-loader": "6.0.2",
     "typescript": "3.5.1",
+    "web-ext": "7.8.0",
     "webextension-polyfill": "0.4.0",
     "webpack": "4.33.0",
     "webpack-bugsnag-plugins": "1.4.0",
