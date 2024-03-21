@@ -17,7 +17,7 @@ const config = f => (
 ) => {
   const env = {
     development: Boolean(development),
-    bugsnagApiKey: process.env.BUTTON_BUGSNAG_API_KEY,
+    bugsnagApiKey: process.env.BUTTON_BUGSNAG_API_KEY || '',
     production: Boolean(production),
     release: Boolean(release),
     version: pkg.version
