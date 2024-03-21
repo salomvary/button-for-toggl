@@ -59,16 +59,10 @@ If you want to install the extension permanently from source on Firefox, follow 
 
 If you want to inspect the distribution version, run `npm run build`. A zipped distribution can then be found in `dist/`.
 
-## Changelog
-
-List of all the changes and added features can be found at https://github.com/salomvary/button-for-toggl/releases.
-
 ## Using the Button
 
 1. Log in to your [Toggl] account from the extension popup.
 2. Navigate to your [service](#compatible-services) and start your Toggl timer there.
-
-_See this article for reference where the start timer link is located in all the tools: [Where can I find the Button?]_
 
 Or start entry from the extension icon menu.
 
@@ -87,16 +81,8 @@ If you use a setup, where one of the supported services is on a custom domain yo
 
 ## Contributing
 
-Want to contribute? Great! Read up on our
-guidelines for [contributing](.github/CONTRIBUTING.md)
-
 Just fork the project, make your changes and create a [pull request].
-
-When adding new integrations please use `git squash` and merge all your commits into one commit. This keeps the git log more compact and clear.
-
-Don't know how to start? Just check out the [user requested services] that have not yet been implemented, pick one and start hacking.
 
 [Pull Request]: https://github.com/salomvary/button-for-toggl/pulls
 [Toggl]: https://www.toggl.com/
-[Where can I find the button?]: https://github.com/salomvary/button-for-toggl/wiki/Where-can-I-find-the-Button%3F
 [user requested services]: https://github.com/salomvary/button-for-toggl/wiki/User-requested-buttons
