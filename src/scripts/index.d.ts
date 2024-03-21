@@ -7,7 +7,6 @@ interface Process {
   env: {
     NODE_ENV?: 'PRODUCTION';
     DEBUG?: string;
-    BUGSNAG_API_KEY?: string;
     VERSION: string;
     TOGGL_WEB_HOST: string;
   }

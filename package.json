@@ -83,12 +83,10 @@
     "web-ext": "7.8.0",
     "webextension-polyfill": "0.4.0",
     "webpack": "5.91.0",
-    "webpack-bugsnag-plugins": "1.4.0",
     "webpack-cli": "4.10.0",
     "webpack-log": "3.0.2"
   },
   "dependencies": {
-    "@bugsnag/js": "7.9.2",
     "@emotion/core": "10.0.10",
     "@emotion/styled": "10.0.10",
     "@toggl/track-extension": "github:toggl/track-extension",
@@ -97,7 +95,6 @@
     "lodash.map": "4.6.0",
     "lodash.reduce": "4.6.0",
     "moment": "2.24.0",
-    "nanoid": "1.2.6",
     "prop-types": "15.7.2",
     "react": "16.8.4",
     "react-dom": "16.8.4",

@@ -31,7 +31,6 @@ module.exports = {
         togglbutton: false,
         TogglButton: false,
         chrome: false,
-        ga: false
       }
     },
     {
@@ -52,7 +51,6 @@ module.exports = {
         PopUp: false,
         Db: false,
         chrome: false,
-        ga: false
       }
     },
     {

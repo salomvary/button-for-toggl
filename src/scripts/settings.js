@@ -1,11 +1,9 @@
 import browser from 'webextension-polyfill';
 
 import TogglOrigins from './origins';
-import bugsnagClient from './lib/bugsnag';
 import { getStoreLink, getUrlParam, isActiveUser } from './lib/utils';
 
 let TogglButton = browser.extension.getBackgroundPage().TogglButton;
-const ga = browser.extension.getBackgroundPage().ga;
 const db = browser.extension.getBackgroundPage().db;
 const FF = navigator.userAgent.indexOf('Chrome') === -1;
 
@@ -63,8 +61,6 @@ const Settings = {
   $pomodoroTickerVolume: null,
   $pomodoroTickerVolumeLabel: null,
 
-  $sendUsageStatistics: null,
-  $sendErrorReports: null,
   $enableAutoTagging: null,
   $resetAllSettings: null,
   $loginInfo: document.querySelector('#login-info'),
@@ -94,8 +90,6 @@ const Settings = {
       const pomodoroFocusMode = await db.get('pomodoroFocusMode');
       const pomodoroSoundEnabled = await db.get('pomodoroSoundEnabled');
       const pomodoroStopTimeTrackingWhenTimerEnds = await db.get('pomodoroStopTimeTrackingWhenTimerEnds');
-      const sendUsageStatistics = await db.get('sendUsageStatistics');
-      const sendErrorReports = await db.get('sendErrorReports');
       const stopAtDayEnd = await db.get('stopAtDayEnd');
       const dayEndTime = await db.get('dayEndTime');
 
@@ -175,14 +169,6 @@ const Settings = {
         Settings.$pomodoroStopTimeTracking,
         pomodoroStopTimeTrackingWhenTimerEnds
       );
-      Settings.toggleState(
-        Settings.$sendUsageStatistics,
-        sendUsageStatistics
-      );
-      Settings.toggleState(
-        Settings.$sendErrorReports,
-        sendErrorReports
-      );
       Array.apply(null, Settings.$rememberProjectPer.options).forEach(function (
         option
       ) {
@@ -198,8 +184,6 @@ const Settings = {
       document.querySelector('.field.stop-at-day-end').classList.toggle('field--showDetails', stopAtDayEnd);
 
       Settings.fillDefaultProject();
-
-      ga.reportSettings();
 
       Settings.loadSitesIntoList();
     } catch (e) {
@@ -705,10 +689,6 @@ document.addEventListener('DOMContentLoaded', async function (e) {
     Settings.$rememberProjectPer = document.querySelector(
       '#remember-project-per'
     );
-    Settings.$sendUsageStatistics = document.querySelector(
-      '#send-usage-statistics'
-    );
-    Settings.$sendErrorReports = document.querySelector('#send-error-reports');
     Settings.$enableAutoTagging = document.querySelector('#enable-auto-tagging');
     Settings.$resetAllSettings = document.querySelector('#reset-all-settings');
 
@@ -971,14 +951,11 @@ document.addEventListener('DOMContentLoaded', async function (e) {
     );
 
     Settings.$resetAllSettings.addEventListener('click', function (e) {
-      bugsnagClient.leaveBreadcrumb('Triggered reset all settings');
       const isConfirmed = confirm('Are you sure you want to reset your settings?');
       if (!isConfirmed) {
-        bugsnagClient.leaveBreadcrumb('Cancelled reset all settings');
         return;
       }
 
-      bugsnagClient.leaveBreadcrumb('Confirmed reset all settings');
       db.resetAllSettings()
         .then(() => {
           browser.runtime
@@ -986,16 +963,6 @@ document.addEventListener('DOMContentLoaded', async function (e) {
             .then(() => window.location.reload())
             .catch(() => window.location.reload());
         });
-    });
-
-    Settings.$sendUsageStatistics.addEventListener('click', async function (e) {
-      const sendUsageStatistics = await db.get('sendUsageStatistics');
-      Settings.toggleSetting(e.target, !sendUsageStatistics, 'update-send-usage-statistics');
-    });
-
-    Settings.$sendErrorReports.addEventListener('click', async function (e) {
-      const sendErrorReports = await db.get('sendErrorReports');
-      Settings.toggleSetting(e.target, !sendErrorReports, 'update-send-error-reports');
     });
 
     Settings.$logOut.addEventListener('click', function (e) {

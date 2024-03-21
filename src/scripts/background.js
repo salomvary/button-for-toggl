@@ -1,10 +1,8 @@
 import browser from 'webextension-polyfill';
 
-import bugsnagClient from './lib/bugsnag';
 import { escapeHtml, isTogglURL, report, secToHHMM } from './lib/utils';
 import { renderTimeEntries } from './lib/actions';
 import Db from './lib/db';
-import Ga from './lib/ga';
 import Sound from './lib/sound';
 /* eslint-disable-next-line import/no-webpack-loader-syntax */
 import togglButtonSVG from '!!raw-loader!./icons/toggl-button.svg';
@@ -164,7 +162,6 @@ window.TogglButton = {
     '</div>',
 
   fetchUser: function (token) {
-    bugsnagClient.leaveBreadcrumb('Fetching user with related data');
     return new Promise((resolve, reject) => {
       TogglButton.ajax('/me?with_related_data=true', {
         token: token,
@@ -247,19 +244,9 @@ window.TogglButton = {
               resolve({ success: xhr.status === 200 });
               TogglButton.setBrowserActionBadge();
               TogglButton.setupSocket();
-              TogglButton.updateBugsnag();
               TogglButton.handleQueue();
               TogglButton.setCanSeeBillable();
-              ga.reportOs();
             } else {
-              if (xhr.status !== 403) {
-                bugsnagClient.notify(new Error(`Fetch user failed ${xhr.status}`), evt => {
-                  evt.addMetadata('general', {
-                    status: xhr.status,
-                    responseText: xhr.responseText
-                  });
-                });
-              }
               TogglButton.setBrowserActionBadge();
               resolve({
                 success: false,
@@ -287,13 +274,6 @@ window.TogglButton = {
     while (TogglButton.queue.length) {
       TogglButton.queue.shift()();
     }
-  },
-
-  updateBugsnag: function () {
-    // Set user data
-    bugsnagClient.setUser({
-      id: TogglButton.$user.id
-    });
   },
 
   setCanSeeBillable: function () {
@@ -324,7 +304,6 @@ window.TogglButton = {
     try {
       TogglButton.websocket.socket = new WebSocket(Object.assign(new URL('/stream', process.env.API_URL), { protocol: 'wss:' }).href);
     } catch (error) {
-      bugsnagClient.notify(error, evt => { evt.context = 'websocket'; });
       TogglButton.retryWebsocketConnection();
       return;
     }
@@ -344,7 +323,6 @@ window.TogglButton = {
         return TogglButton.websocket.socket.send(data);
       } catch (error) {
         if (process.env.DEBUG) console.log(error);
-        bugsnagClient.notify(error, evt => { evt.context = 'websocket'; });
       }
     };
 
@@ -354,7 +332,6 @@ window.TogglButton = {
     };
 
     TogglButton.websocket.socket.onclose = function () {
-      bugsnagClient.leaveBreadcrumb('Websocket connection closed');
       TogglButton.retryWebsocketConnection();
     };
 
@@ -373,7 +350,6 @@ window.TogglButton = {
           TogglButton.websocket.socket.send(pingResponse);
         } catch (error) {
           if (process.env.DEBUG) console.log(error);
-          bugsnagClient.notify(error, evt => { evt.context = 'websocket'; });
         }
       }
     };
@@ -388,7 +364,6 @@ window.TogglButton = {
       TogglButton.websocket.retryCount++;
       TogglButton.setupSocket();
 
-      bugsnagClient.leaveBreadcrumb(`Websocket reconnection attempt ${TogglButton.websocket.retryCount}`);
       if (process.env.DEBUG) console.info(`Websocket reconnection attempt ${TogglButton.websocket.retryCount}`);
     }, retrySeconds * 1000);
   },
@@ -654,7 +629,6 @@ window.TogglButton = {
               entry = JSON.parse(xhr.responseText);
               TogglButton.localEntry = entry;
               TogglButton.updateTriggers(entry);
-              ga.reportEvent(timeEntry.type, timeEntry.service);
               db.bumpTrackedCount();
             } else {
               error = xhr.responseText;
@@ -914,7 +888,6 @@ window.TogglButton = {
               TogglButton.updateEntriesDb();
               TogglButton.resetPomodoroProgress(null);
               TogglButton.setNannyTimer();
-              ga.reportEvent(timeEntry.type, timeEntry.service);
               resolve({ success: true, type: 'Stop' });
               browser.tabs.query({ active: true, currentWindow: true })
                 .then(filterTabs(function (tabs) {
@@ -966,7 +939,6 @@ window.TogglButton = {
               TogglButton.updateEntriesDb();
               TogglButton.resetPomodoroProgress(null);
               TogglButton.setNannyTimer();
-              ga.reportEvent(timeEntry.type, timeEntry.service);
 
               browser.tabs.query({ active: true, currentWindow: true })
                 .then(filterTabs(function (tabs) {
@@ -1151,7 +1123,6 @@ window.TogglButton = {
               } else {
                 resolve();
               }
-              ga.reportEvent(timeEntry.type, timeEntry.service);
             } catch (e) {
               report(e);
               resolve({
@@ -1193,7 +1164,6 @@ window.TogglButton = {
             }
             try {
               resolve({ success: success, type: 'delete', id: timeEntry.id });
-              ga.reportEvent(timeEntry.type, timeEntry.service);
             } catch (e) {
               report(e);
               resolve({
@@ -1255,9 +1225,6 @@ window.TogglButton = {
       const { api_token: apiToken } = parsedResponse.data;
       localStorage.setItem('userToken', apiToken);
     } catch (err) {
-      bugsnagClient.notify(new Error('Login token-parse failed'), evt => {
-        evt.addMetadata({ general: { response } });
-      });
     }
   },
 
@@ -1279,14 +1246,6 @@ window.TogglButton = {
             if (xhr.status === 403) {
               error = 'Wrong Email or Password!';
             }
-            bugsnagClient.notify(new Error(`Login failed (${xhr.status})`), evt => {
-              evt.addMetadata({
-                general: {
-                  status: xhr.status,
-                  responseText: xhr.responseText
-                }
-              });
-            });
             resolve({ success: false, error: error });
           }
         },
@@ -1766,8 +1725,6 @@ window.TogglButton = {
   notificationBtnClick: function (notificationId, buttonID) {
     let type = 'dropdown-pomodoro';
     let timeEntry = TogglButton.$curEntry;
-    let buttonName = 'start_new';
-    let eventType = 'reminder';
 
     if (notificationId === 'remind-to-track-time') {
       type = 'dropdown-reminder';
@@ -1781,15 +1738,12 @@ window.TogglButton = {
           timeEntry.service = type;
           // continue timer
           TogglButton.createTimeEntry(timeEntry);
-          buttonName = 'continue';
         } else {
           browser.tabs.create({ url: 'https://toggl.com/app/' });
-          buttonName = 'go_to_web';
         }
       }
     } else if (notificationId === 'idle-detection') {
       if (buttonID === 0 || buttonID === 1) {
-        buttonName = 'discard';
         // discard idle time
         TogglButton.stopTimeEntry({
           stopDate: TogglButton.$idleNotificationDiscardSince,
@@ -1799,11 +1753,9 @@ window.TogglButton = {
           if (buttonID === 1) {
             timeEntry.type = 'idle-detection-notification-continue';
             TogglButton.createTimeEntry(timeEntry);
-            buttonName = 'discard_continue';
           }
         });
       }
-      eventType = 'idle';
     } else if (notificationId === 'pomodoro-time-is-up') {
       if (buttonID === 0) {
         timeEntry = TogglButton.$latestStoppedEntry;
@@ -1815,12 +1767,10 @@ window.TogglButton = {
         }
         // continue timer
         TogglButton.createTimeEntry(timeEntry);
-        buttonName = 'continue';
       } else {
         // start timer
         TogglButton.createTimeEntry({ type: 'timeEntry', service: type });
       }
-      eventType = 'pomodoro';
     } else if (notificationId === 'workday-ended-notification') {
       if (buttonID === 0) {
         timeEntry = TogglButton.$latestStoppedEntry;
@@ -1832,21 +1782,17 @@ window.TogglButton = {
         }
         // continue timer
         TogglButton.createTimeEntry(timeEntry);
-        buttonName = 'continue';
       }
-      eventType = 'workday-end';
     } else if (notificationId === 'pomodoro-time-is-up-dont-stop') {
       if (buttonID === 0) {
         TogglButton.stopTimeEntry(TogglButton.$curEntry);
       } else {
         TogglButton.createTimeEntry({ type: 'timeEntry', service: type });
       }
-      eventType = 'pomodoro';
     }
     if (!FF) {
       TogglButton.onNotificationClicked(notificationId);
     }
-    ga.reportEvent(eventType, buttonName);
   },
 
   isDuringWorkHours: async function () {
@@ -1870,7 +1816,6 @@ window.TogglButton = {
 
       return now > start && now <= end;
     } catch (e) {
-      bugsnagClient.notify(e);
       return false;
     }
   },
@@ -2072,14 +2017,6 @@ window.TogglButton = {
           db.updateSetting('rememberProjectPer', request.state);
           db.resetDefaultProjects();
         } else if (
-          request.type === 'update-send-usage-statistics'
-        ) {
-          db.updateSetting('sendUsageStatistics', request.state);
-        } else if (
-          request.type === 'update-send-error-reports'
-        ) {
-          db.updateSetting('sendErrorReports', request.state);
-        } else if (
           request.type === 'update-enable-auto-tagging'
         ) {
           db.updateSetting('enableAutoTagging', request.state);
@@ -2162,7 +2099,6 @@ window.TogglButton = {
           } else {
             if (request.category === 'Content') {
               error.name = `Content Error [${errorSource}]`;
-              bugsnagClient.notify(error);
             } else {
               report(error);
             }
@@ -2390,7 +2326,6 @@ browser.webRequest.onBeforeSendHeaders.addListener(
 );
 
 window.db = new Db(TogglButton);
-window.ga = new Ga(db);
 
 TogglButton.queue.push(TogglButton.startAutomatically);
 db.get('showRightClickButton')
@@ -2420,8 +2355,7 @@ browser.windows.onCreated.addListener(function () {
 browser.windows.onRemoved.addListener(TogglButton.stopTrackingOnBrowserClosed);
 
 browser.runtime
-  .setUninstallURL(`${process.env.TOGGL_WEB_HOST}/toggl-button-feedback/`)
-  .catch(bugsnagClient.notify);
+  .setUninstallURL(`${process.env.TOGGL_WEB_HOST}/toggl-button-feedback/`);
 
 window.onbeforeunload = function () {
   db.get('stopAutomatically')

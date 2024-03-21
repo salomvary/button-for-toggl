@@ -1,8 +1,7 @@
 import browser from 'webextension-polyfill';
-import bugsnagClient from './bugsnag';
 import storedOrigins from '../origins';
 
-import { getIDBItem, setIDBItem, clearIDBAll } from './dbUtils';
+import { clearIDBAll, getIDBItem, setIDBItem } from './dbUtils';
 
 const ORIGINS_KEY = 'TogglButton-origins';
 
@@ -32,10 +31,7 @@ const DEFAULT_SETTINGS = {
   dayEndTime: '17:00',
   defaultProject: 0,
   rememberProjectPer: 'false',
-  enableAutoTagging: false,
-
-  sendErrorReports: true,
-  sendUsageStatistics: true
+  enableAutoTagging: false
 };
 
 const LOCAL_ONLY = {
@@ -313,18 +309,13 @@ export default class Db {
   resetAllSettings () {
     const allSettings = { ...DEFAULT_SETTINGS };
     return this.setMultiple(allSettings)
-      .then(() => {
-        bugsnagClient.leaveBreadcrumb('Completed reset all settings');
-      })
       .catch((e) => {
-        bugsnagClient.notify(e);
         alert('Failed to reset settings. Please try re-installing the extension.');
       });
   }
 
   _migrateToStorageSync () {
     console.info('Migrating settings to v2');
-    bugsnagClient.leaveBreadcrumb('Attempting settings migration to v2');
 
     try {
       const allSettings = { ...DEFAULT_SETTINGS };
@@ -346,14 +337,11 @@ export default class Db {
       this.setMultiple(oldSettings)
         .then(() => {
           console.info('Succesully migrated old settings to v2');
-          bugsnagClient.leaveBreadcrumb('Migrated settings to v2');
         })
         .catch((e) => {
           console.error('Failed to migrate settings to v2; ');
-          bugsnagClient.notify(e);
         });
     } catch (e) {
-      bugsnagClient.notify(e);
     }
   }
 }

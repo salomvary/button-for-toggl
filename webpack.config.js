@@ -2,7 +2,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 const fs = require('fs');
 const path = require('path');
-const { BugsnagSourceMapUploaderPlugin } = require('webpack-bugsnag-plugins');
 const { CleanWebpackPlugin: CleanPlugin } = require('clean-webpack-plugin');
 const { EnvironmentPlugin } = require('webpack');
 
@@ -17,7 +16,6 @@ const config = f => (
 ) => {
   const env = {
     development: Boolean(development),
-    bugsnagApiKey: process.env.BUTTON_BUGSNAG_API_KEY || '',
     production: Boolean(production),
     release: Boolean(release),
     version: pkg.version
@@ -29,7 +27,7 @@ const config = f => (
   return f(env);
 };
 
-module.exports = config(({ development, bugsnagApiKey, production, release, version }) => ({
+module.exports = config(({ development, production, release, version }) => ({
   target: 'web',
   context: path.resolve(__dirname, 'src'),
   devtool: 'source-map',
@@ -74,9 +72,7 @@ module.exports = config(({ development, bugsnagApiKey, production, release, vers
     new EnvironmentPlugin({
       API_URL: 'https://track.toggl.com/api',
       TOGGL_WEB_HOST: 'https://toggl.com/track',
-      BUGSNAG_API_KEY: bugsnagApiKey,
       DEBUG: development,
-      GA_TRACKING_ID: '',
       VERSION: version
     }),
     new CleanPlugin(),
@@ -110,13 +106,6 @@ module.exports = config(({ development, bugsnagApiKey, production, release, vers
         }
       ]
     }, { copyUnmodified: true }),
-    production && release &&
-    new BugsnagSourceMapUploaderPlugin({
-      apiKey: bugsnagApiKey,
-      appVersion: version,
-      publicPath: 'togglbutton://',
-      overwrite: true /* Overwrites existing sourcemaps for this version */
-    }),
     new FileManagerPlugin({
       events: {
         onEnd: {

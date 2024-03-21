@@ -541,7 +541,6 @@ document.addEventListener('DOMContentLoaded', function () {
         browser.runtime.sendMessage(request).catch(e => {
           throw new Error(e);
         });
-        browser.extension.getBackgroundPage().ga.report('sync', 'sync-toolbar-popup');
       });
 
     document

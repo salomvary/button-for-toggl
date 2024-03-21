@@ -1,19 +1,10 @@
 import * as React from 'react';
-import { Global, css } from '@emotion/core';
+import {css, Global} from '@emotion/core';
 import styled from '@emotion/styled';
 import browser from 'webextension-polyfill';
 
-import bugsnagClient from '../lib/bugsnag';
-import { sendMessage } from '../lib/messaging';
-import {
-  Content,
-  Row,
-  Heading,
-  Subheading,
-  Button,
-  CenteredButton,
-  Link
-} from '../@toggl/ui/components';
+import {sendMessage} from '../lib/messaging';
+import {Button, CenteredButton, Content, Heading, Link, Row, Subheading} from '../@toggl/ui/components';
 import Logo from '../icons/Logo';
 import Spinner from './Spinner';
 import QuickStartGuide from './QuickStartGuide';
@@ -54,12 +45,6 @@ async function login (setState: React.Dispatch<React.SetStateAction<LoginState>>
 export default function LoginPage ({ source, isLoggedIn, isPopup }: LoginProps) {
   const [ state, setState ] = React.useState<LoginState>({ loading: false, error: null, loggedIn: isLoggedIn });
   const { loading, error, loggedIn } = state;
-
-  React.useEffect(() => {
-    if (error) {
-      bugsnagClient.notify(new Error(error), evt => { evt.context = 'login-page'; });
-    }
-  }, [error]);
 
   React.useEffect(() => {
     if (source === 'web-login' && loading) document.title = 'Logging in to Button for Toggl';
@@ -173,11 +158,6 @@ function HeaderLinks ({ loggedIn }: Pick<LoginState, 'loggedIn'>) {
       <li>
         <Link href="settings.html?tab=pomodoro">
           Pomodoro
-        </Link>
-      </li>
-      <li>
-        <Link href="settings.html?tab=telemetry">
-          Telemetry
         </Link>
       </li>
       <li>

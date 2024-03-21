@@ -1,6 +1,3 @@
-import bugsnagClient from './bugsnag';
-import { Event } from "@bugsnag/core/types";
-
 const togglUrlRegex = /^(\w+\.)?toggl\.(space|com)$/
 
 export function secToHHMM (sum: number) {
@@ -13,8 +10,6 @@ export function secToHHMM (sum: number) {
 export function report (e: Error) {
   if (process.env.DEBUG) {
     console.error(e);
-  } else {
-    bugsnagClient.notify(e);
   }
 }
 
@@ -42,9 +37,6 @@ export function isTogglURL (url: string) {
   try {
     return togglUrlRegex.test(new URL(url).hostname);
   } catch (err) {
-    bugsnagClient.notify(err, (evt: Event) => {
-      evt.addMetadata('general', { url })
-    });
     return false;
   }
 }
