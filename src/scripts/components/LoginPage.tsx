@@ -185,11 +185,6 @@ function HeaderLinks ({ loggedIn }: Pick<LoginState, 'loggedIn'>) {
           Account
         </Link>
       </li>
-      <li>
-        <Link href="https://support.toggl.com/browser-extensions">
-          User Guide
-        </Link>
-      </li>
     </Links>
   );
 }

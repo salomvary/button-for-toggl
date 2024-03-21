@@ -318,7 +318,7 @@ export default class Db {
       })
       .catch((e) => {
         bugsnagClient.notify(e);
-        alert('Failed to reset settings. Please contact support@toggl.com for assistance or try re-installing the extension.');
+        alert('Failed to reset settings. Please try re-installing the extension.');
       });
   }
 
