@@ -153,10 +153,15 @@ function entry (name, ext = 'js') {
 }
 
 function entryContentScripts () {
-  const contentScriptFiles = fs.readdirSync('./src/scripts/content/');
+  const contentScriptFiles = fs.readdirSync('./node_modules/@toggl/track-extension/src/content/');
   return contentScriptFiles.reduce((entries, file) => {
     const name = file.replace('.js', '');
-    return Object.assign(entries, entry(`content/${name}`));
+    return Object.assign(entries,
+      {
+        [`scripts/content/${name}`]: `@toggl/track-extension/src/content/${name}.js`
+      }
+      // entry(`content/${name}`)
+    );
   }, {});
 }
 
