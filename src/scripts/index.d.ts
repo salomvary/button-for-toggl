@@ -9,6 +9,7 @@ interface Process {
     DEBUG?: string;
     VERSION: string;
     TOGGL_WEB_HOST: string;
+    TOGGL_ACCOUNTS_HOST: string;
   }
 }
 
