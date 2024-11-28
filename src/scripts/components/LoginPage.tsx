@@ -170,7 +170,7 @@ function HeaderLinks ({ loggedIn }: Pick<LoginState, 'loggedIn'>) {
 }
 
 function LoginButton ({ isPopup }: Pick<LoginProps, 'isPopup'>) {
-  const url = `${process.env.TOGGL_WEB_HOST}/toggl-button-login/`;
+  const url = `${process.env.TOGGL_ACCOUNTS_HOST}/track/login/`;
   return (
     isPopup
     ? <a href='#' onClick={openPage(url)}><Button>Login</Button></a>

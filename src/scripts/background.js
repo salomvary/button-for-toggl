@@ -65,8 +65,8 @@ window.TogglButton = {
   $curEntry: null,
   $latestStoppedEntry: null,
   $ApiUrl: process.env.API_URL,
-  $ApiV8Url: `${process.env.API_URL}/v8`,
   $ApiV9Url: `${process.env.API_URL}/v9`,
+  $accountsApiUrl: `${process.env.TOGGL_ACCOUNTS_HOST}/api`,
   $sendResponse: null,
   websocket: {
     socket: null,
@@ -165,7 +165,7 @@ window.TogglButton = {
     return new Promise((resolve, reject) => {
       TogglButton.ajax('/me?with_related_data=true', {
         token: token,
-        baseUrl: TogglButton.$ApiV8Url,
+        baseUrl: TogglButton.$ApiV9Url,
         onLoad: async function (xhr) {
           let resp;
           const projectMap = {};
@@ -807,7 +807,7 @@ window.TogglButton = {
   ajax: function (url, opts) {
     const xhr = new XMLHttpRequest();
     const method = opts.method || 'GET';
-    const baseUrl = opts.baseUrl || TogglButton.$ApiV8Url;
+    const baseUrl = opts.baseUrl || TogglButton.$ApiV9Url;
     const resolvedUrl = baseUrl + url;
     const token =
         opts.token ||
@@ -818,7 +818,7 @@ window.TogglButton = {
     xhr.open(method, resolvedUrl, true);
     xhr.setRequestHeader('IsTogglButton', 'true');
 
-    if (resolvedUrl.match(TogglButton.$ApiUrl)) {
+    if (resolvedUrl.match(TogglButton.$ApiUrl) || resolvedUrl.match(TogglButton.$accountsApiUrl)) {
       if (token) {
         xhr.setRequestHeader(
           'Authorization',
@@ -1231,7 +1231,7 @@ window.TogglButton = {
   loginUser: function (request) {
     let error;
     return new Promise((resolve, reject) => {
-      TogglButton.ajax('/sessions', {
+      TogglButton.ajax('/me/sessions', {
         method: 'POST',
         onLoad: function (xhr) {
           if (xhr.status === 200) {
@@ -1266,6 +1266,7 @@ window.TogglButton = {
   logoutUser: function () {
     return new Promise((resolve) => {
       TogglButton.ajax('/sessions?created_with=' + TogglButton.$fullVersion, {
+        baseUrl: TogglButton.$accountsApiUrl,
         method: 'DELETE',
         onLoad: async function (xhr) {
           TogglButton.$user = null;

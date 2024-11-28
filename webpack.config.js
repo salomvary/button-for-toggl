@@ -72,6 +72,7 @@ module.exports = config(({ development, production, release, version }) => ({
     new EnvironmentPlugin({
       API_URL: 'https://track.toggl.com/api',
       TOGGL_WEB_HOST: 'https://toggl.com/track',
+      TOGGL_ACCOUNTS_HOST: 'https://accounts.toggl.com',
       DEBUG: development,
       VERSION: version
     }),
