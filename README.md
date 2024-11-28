@@ -91,4 +91,3 @@ Just fork the project, make your changes and create a [pull request].
 
 [Pull Request]: https://github.com/salomvary/button-for-toggl/pulls
 [Toggl]: https://www.toggl.com/
-[user requested services]: https://github.com/salomvary/button-for-toggl/wiki/User-requested-buttons
